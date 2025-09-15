@@ -1,0 +1,206 @@
+:root {
+  /* 
+    Professional, accessible color palette for a device management platform.
+    Blues and neutral grays, with clear status colors.
+    All variables documented for easy maintenance.
+  */
+
+  /* Brand colors */
+  --color-brand-50: #f5f9ff;
+  --color-brand-100: #e6f0fb;
+  --color-brand-200: #cfe0f7;
+  --color-brand-300: #a9c7ef;
+  --color-brand-400: #6ba0e3;
+  --color-brand-500: #2f6fce; /* Primary brand blue (main) */
+  --color-brand-600: #255ab0;
+  --color-brand-700: #1e4a92;
+  --color-brand-800: #1a3f7a;
+  --color-brand-900: #162f59;
+
+  /* Neutrals - used for backgrounds, borders, text */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f7f8fa;
+  --color-neutral-100: #eef1f5;
+  --color-neutral-200: #e2e6ec;
+  --color-neutral-300: #cfd5df;
+  --color-neutral-400: #aeb7c4;
+  --color-neutral-500: #8e99aa;
+  --color-neutral-600: #6b7483;
+  --color-neutral-700: #4c5563;
+  --color-neutral-800: #353c47;
+  --color-neutral-900: #1f242c;
+
+  /* Semantic status colors */
+  --color-success-600: #2e7d32; /* Success actions/messages */
+  --color-warning-600: #b26a00; /* Warning notifications */
+  --color-error-600: #c62828;   /* Errors and destructive actions */
+  --color-info-600: #1565c0;    /* Informational accents */
+
+  /* Text colors */
+  --text-primary: var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-700);
+  --text-inverse: var(--color-neutral-0);
+
+  /* Background colors */
+  --bg-body: var(--color-neutral-50);
+  --bg-surface: var(--color-neutral-0);
+  --bg-subtle: var(--color-neutral-100);
+
+  /* Border colors and radii */
+  --border-color: var(--color-neutral-200);
+  --focus-ring: 0 0 0 3px rgba(47, 111, 206, 0.35); /* Accessible focus ring */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  /* Shadows (subtle for corporate look) */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 2px 8px rgba(16, 24, 40, 0.08);
+
+  /* Spacing scale (for consistency) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* Action colors */
+  --action-primary-bg: var(--color-brand-500);
+  --action-primary-bg-hover: var(--color-brand-600);
+  --action-primary-text: var(--text-inverse);
+
+  --action-secondary-bg: var(--color-neutral-100);
+  --action-secondary-bg-hover: var(--color-neutral-200);
+  --action-secondary-text: var(--text-primary);
+
+  /* Inputs */
+  --input-bg: var(--bg-surface);
+  --input-border: var(--border-color);
+  --input-text: var(--text-primary);
+  --input-placeholder: var(--color-neutral-500);
+}
+
+/* Base element resets leveraging theme */
+html, body {
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+}
+
+/* Reusable UI primitives */
+
+/* Buttons (utility classes) */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-2) + 2px) var(--space-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+/* Primary button */
+.button--primary {
+  background-color: var(--action-primary-bg);
+  color: var(--action-primary-text);
+}
+.button--primary:hover {
+  background-color: var(--action-primary-bg-hover);
+}
+
+/* Secondary button */
+.button--secondary {
+  background-color: var(--action-secondary-bg);
+  color: var(--action-secondary-text);
+  border-color: var(--border-color);
+}
+.button--secondary:hover {
+  background-color: var(--action-secondary-bg-hover);
+}
+
+/* Destructive button */
+.button--danger {
+  background-color: var(--color-error-600);
+  color: var(--text-inverse);
+}
+.button--danger:hover {
+  filter: brightness(0.95);
+}
+
+/* Form controls */
+.input, input[type="text"], input[type="email"], input[type="password"], select, textarea {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xs);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.input::placeholder, input::placeholder, textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+.input:focus, input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-brand-400);
+  box-shadow: var(--focus-ring);
+}
+
+/* Cards/Surfaces */
+.surface {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Navigation placeholder styles (can be applied to future nav bar) */
+.navbar {
+  background-color: var(--color-brand-600);
+  color: var(--text-inverse);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.navbar a {
+  color: var(--text-inverse);
+}
+
+/* Utility helpers */
+.text-secondary {
+  color: var(--text-secondary);
+}
+.bg-subtle {
+  background-color: var(--bg-subtle);
+}
+.bordered {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xs);
+}
+
+/* High-contrast link styles */
+a {
+  color: var(--color-brand-600);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
