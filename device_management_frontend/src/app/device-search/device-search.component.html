@@ -1,0 +1,239 @@
+<main class="page">
+  <!-- Global Header -->
+  <header class="app-header" aria-label="Global header">
+    <div class="app-brand">
+      <div class="logo" aria-hidden="true">i</div>
+      <span class="brand-text">iCX</span>
+      <span class="divider" aria-hidden="true"></span>
+      <h1 class="page-title" aria-label="Page title">Device Search</h1>
+    </div>
+
+    <div class="search-wrapper" role="search">
+      <span class="icon search" aria-hidden="true">🔎</span>
+      <input
+        class="search-input"
+        type="text"
+        [value]="searchQuery()"
+        (input)="onGlobalSearchInput($any($event.target).value)"
+        placeholder="Search device or Assurance journeys"
+        aria-label="Global search input"
+      />
+      <button class="icon-btn clear" (click)="clearSearch()" aria-label="Clear search">✕</button>
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Notifications">
+        <span class="icon">🔔</span>
+        <span class="badge" aria-hidden="true"></span>
+      </button>
+      <button class="icon-btn" aria-label="Help">
+        <span class="icon">❔</span>
+      </button>
+      <button class="user-menu" aria-label="User menu">
+        <div class="avatar" aria-hidden="true">M</div>
+        <span class="user-name">Matthew</span>
+        <span class="chevron" aria-hidden="true">▾</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Context Bar -->
+  <div class="context-bar" role="navigation" aria-label="Breadcrumb and quick link">
+    <div class="left">
+      <button class="back-btn" (click)="goBack()" aria-label="Back to list">←</button>
+      <span class="context-id">{{ device.id }}</span>
+    </div>
+    <div class="right">
+      <a class="tip-link" href="#" aria-label="Go to Task Manager to view status">Go to Task Manager to view status ↗</a>
+    </div>
+  </div>
+
+  <!-- Content Grid -->
+  <section class="content-grid">
+    <!-- Left: Device Details -->
+    <aside class="device-panel" aria-label="Device details">
+      <div class="device-header">
+        <div class="device-thumb" aria-hidden="true">
+          <div class="thumb" aria-label="Device photo">📦</div>
+        </div>
+        <div class="device-meta">
+          <div class="title-row">
+            <h2 class="card-title">Device Details</h2>
+            <div class="title-actions">
+              <button class="icon-btn sm" aria-label="Share">⤴</button>
+              <button class="icon-btn sm" aria-label="Copy">⧉</button>
+              <button class="icon-btn sm" aria-label="More">⋮</button>
+            </div>
+          </div>
+          <div class="device-name">{{ device.name }}</div>
+          <div class="device-sub">{{ device.model }} • {{ device.serial }}</div>
+          <div class="status-row" aria-label="Status indicators">
+            <span class="status-chip" *ngFor="let s of device.statuses">
+              <span class="dot" [style.backgroundColor]="s.color" aria-hidden="true"></span>
+              {{ s.label }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-list">
+        <div class="item">
+          <div class="label">Device ID</div>
+          <div class="value">{{ device.id }}</div>
+        </div>
+        <div class="item">
+          <div class="label">Location</div>
+          <div class="value">{{ device.location }}</div>
+        </div>
+        <div class="item">
+          <div class="label">Assigned user</div>
+          <div class="value">{{ device.assignedUser }}</div>
+        </div>
+        <div class="item">
+          <div class="label">Warranty</div>
+          <div class="value">{{ device.warranty }}</div>
+        </div>
+        <div class="item">
+          <div class="label">Last online</div>
+          <div class="value">{{ device.lastOnline }}</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Middle: Journeys -->
+    <section class="journeys" aria-label="Assurance and diagnostics journeys">
+      <div class="section-header">
+        <h2>Assurance & Diagnostics Journeys</h2>
+        <a href="#" class="factory-link" aria-label="Factory Reset">Factory Reset</a>
+      </div>
+
+      <div class="cards">
+        <!-- Assurance card -->
+        <article class="journey-card" aria-label="Assurance">
+          <header class="journey-header">
+            <h3>Assurance</h3>
+          </header>
+          <ul class="journey-list" role="listbox" aria-label="Assurance options">
+            <li
+              *ngFor="let item of assuranceList"
+              class="journey-item"
+              [class.selected]="selectedAssurance() === item"
+              (click)="onSelectAssurance(item)"
+              role="option"
+              [attr.aria-selected]="selectedAssurance() === item"
+            >
+              <span class="accent-bar" aria-hidden="true"></span>
+              <span>{{ item }}</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Diagnostics card -->
+        <article class="journey-card" aria-label="Diagnostics">
+          <header class="journey-header">
+            <h3>Diagnostics</h3>
+          </header>
+          <ul class="journey-list" role="listbox" aria-label="Diagnostics options">
+            <li
+              *ngFor="let item of diagnosticsList"
+              class="journey-item"
+              [class.selected]="selectedDiagnostic() === item"
+              (click)="onSelectDiagnostic(item)"
+              role="option"
+              [attr.aria-selected]="selectedDiagnostic() === item"
+            >
+              <span class="accent-bar" aria-hidden="true"></span>
+              <span>{{ item }}</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Tools card -->
+        <article class="journey-card" aria-label="Tools">
+          <header class="journey-header">
+            <h3>Tools</h3>
+          </header>
+          <ul class="journey-list" role="listbox" aria-label="Tools options">
+            <li
+              *ngFor="let item of toolsList"
+              class="journey-item"
+              [class.selected]="selectedTool() === item"
+              (click)="onSelectTool(item)"
+              role="option"
+              [attr.aria-selected]="selectedTool() === item"
+            >
+              <span class="accent-bar" aria-hidden="true"></span>
+              <span>{{ item }}</span>
+            </li>
+          </ul>
+          <div class="empty" *ngIf="toolsList.length === 0">
+            <p>No tools available. Configure tools in settings.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Right: Actions and configuration form -->
+    <aside class="actions" aria-label="Actions and configuration">
+      <button class="primary-cta" type="button" aria-label="Factory Reset">Factory Reset</button>
+
+      <div class="form-card" role="form" aria-label="Configure diagnostics actions">
+        <h3 class="form-title">Configure the actions to be taken to run diagnostics</h3>
+
+        <label class="form-field">
+          <span class="label">Configuration profile</span>
+          <select [(ngModel)]="formModel.configProfile" aria-label="Configuration profile">
+            <option>Default</option>
+            <option>Office WiFi</option>
+            <option>Field Test</option>
+          </select>
+        </label>
+
+        <label class="form-field">
+          <span class="label">SSID</span>
+          <input
+            type="text"
+            [(ngModel)]="formModel.ssid"
+            placeholder="Enter SSID"
+            aria-label="SSID"
+          />
+          <span class="helper">Network name used for WiFi diagnostics.</span>
+        </label>
+
+        <label class="form-field">
+          <span class="label">Password</span>
+          <input
+            type="password"
+            [(ngModel)]="formModel.password"
+            placeholder="Enter password"
+            aria-label="Password"
+          />
+          <span class="helper">We do not store this; used only for the current test.</span>
+        </label>
+
+        <label class="form-field">
+          <span class="label">Band</span>
+          <select [(ngModel)]="formModel.band" aria-label="Band">
+            <option>Dual (2.4 + 5 GHz)</option>
+            <option>2.4 GHz</option>
+            <option>5 GHz</option>
+          </select>
+        </label>
+
+        <label class="form-field">
+          <span class="label">Channel</span>
+          <select [(ngModel)]="formModel.channel" aria-label="Channel">
+            <option>Auto</option>
+            <option>1</option>
+            <option>6</option>
+            <option>11</option>
+            <option>36</option>
+            <option>149</option>
+          </select>
+        </label>
+
+        <button class="submit-btn" type="button" (click)="startTest()" aria-label="Start test">Start test</button>
+      </div>
+    </aside>
+  </section>
+</main>

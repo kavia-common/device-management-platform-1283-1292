@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [],
-  templateUrl: './app.component.html',
+  standalone: true,
+  imports: [RouterOutlet],
+  template: '<router-outlet></router-outlet>',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'device_management_frontend is being generated';
+  title = 'Device Management';
 }
